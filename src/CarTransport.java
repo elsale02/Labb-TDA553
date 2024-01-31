@@ -1,31 +1,64 @@
 import java.util.ArrayList;
-public class CarTransport extends Car{
+public class CarTransport extends Car implements HasBed{
     private final ArrayList<Car> carLoad;
-    private boolean rampLowered;
+    private final Bed bed;
+    private final int capacity;
+
+    public CarTransport() {
+        super(2,color.yellow,250,"Långtradera modell 1");
+        this.capacity = 10;
+        bed = new Bed();
+        carLoad = new ArrayList<>();
+    }
+
+    @Override
+    public void move() {
+        super.move();
+        for(Car car : carLoad) {
+            car.currentSpeed = this.currentSpeed;
+            car.direction = this.direction;
+            car.move();
+        }
+    }
 
     @Override
     public double speedFactor(){
         double loadWeight = 0.8;
         return enginePower * 0.01 * Math.pow(loadWeight,carLoad.size());
     }
-    public void raiseRamp() {
-        rampLowered = false;
-    }
-    public void lowerRamp() {
-        if (currentSpeed == 0) {
-            rampLowered = true;
-        }
-    }
-    public void loadCar(Car car){
-        double radius = 1;
-        if(Math.abs(car.x) <= radius && Math.abs(car.y) <= radius) {
-            carLoad.add(car);
+
+    @Override
+    public void lowerBed() {
+        if(currentSpeed == 0) {
+            bed.setAngle(0);
         }
     }
 
-    public void unloadCar(Car car) {
-        if(carLoad.remove(car)) {
-            car.y--;
+    @Override
+    public void raiseBed() {
+        if(currentSpeed == 0) {
+            bed.setAngle(70);
+        }
+    }
+
+    public void releaseCar() {
+        if(bed.getAngle() == 0) {
+            if (!carLoad.isEmpty()) {
+                Car releasedCar = carLoad.removeFirst();
+                releasedCar.y--;
+            }
+        }
+    }
+
+    public void loadCar(Car car) {
+        if(carLoad.size() < capacity) {
+            double radius = 1;
+            // Only allow if car object is not CarTransport ad if bed is lowered
+            if (car.getClass() != CarTransport.class && bed.getAngle() == 0) {
+                if (Math.abs(car.x) <= radius && Math.abs(car.y) <= radius) {
+                    carLoad.addFirst(car);
+                }
+            }
         }
     }
 }
