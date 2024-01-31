@@ -6,21 +6,38 @@ public class testCar {
     private Saab95 saab;
     private Volvo240 volvo;
     private Scania scania;
+    private AutoRepairShop<Volvo240> volvoRepair;
+
+    private AutoRepairShop<Car> carRepair;
+    private CarTransport carTransport;
 
     @Before
     public void setup(){
         saab = new Saab95();
         volvo = new Volvo240();
         scania = new Scania();
+        volvoRepair = new AutoRepairShop<>(10);
+        carRepair = new AutoRepairShop<>(10);
+        carTransport = new CarTransport();
     }
 
-    //TODO Scania test
     @Test
-    public void testRaiseTrailer(){
+    public void testRaiseBedScania(){
         Scania scania = new Scania();
         scania.raiseBed();
-        assertTrue(scania.bed.getAngle() == 70);
+        assertTrue(scania.bed.getAngle() >= 10 && scania.bed.getAngle() < 70);
     }
+
+    @Test
+    public void testLowerBedScania(){
+        Scania scania = new Scania();
+        for(int i = 0; i < 5; i++){
+            scania.raiseBed();
+        }
+        scania.lowerBed();
+        assertTrue(scania.bed.getAngle() == 40);
+    }
+    
 
     @Test
     public void testVolvoChangeColor(){
@@ -216,6 +233,48 @@ public class testCar {
         double oldSpeed = saab.currentSpeed;
         saab.brake(0.5);
         assertTrue(saab.getCurrentSpeed() < oldSpeed);
+    }
+
+    @Test
+    public void testStoreMoreThanMaxCarsToAutoRepairShop(){
+        AutoRepairShop<Car> shop = new AutoRepairShop<>(1);
+        shop.storeCar(volvo);
+        shop.storeCar(saab);
+        assertEquals(shop.getCarCount(), 1);
+    }
+    @Test
+    public void testRemoveFromEmptyAutoRepairShop(){
+        carRepair = new AutoRepairShop<>(new Car[] {volvo});
+        carRepair.removeCar(volvo);
+        carRepair.removeCar(saab);
+        assertEquals(carRepair.getCarCount(), 0);
+    }
+
+    @Test
+    public void autoRepairShopSpecificModel(){
+        volvoRepair.storeCar(volvo);
+        assertTrue(volvoRepair.getCarCount() > 0);
+    }
+    @Test
+    public void TestScaniaSpeedFactor(){
+        double factor = scania.speedFactor();
+        assertEquals(factor, 1.61, 0.0001);
+    }
+    @Test
+    public void TestScaniaStartEngineWithLoweredBed(){
+        for(int i = 0; i < 9; i++) {
+            scania.lowerBed();
+        }
+        scania.startEngine();
+        assertEquals(scania.getCurrentSpeed(), 0.1, 0.0001);
+    }
+    @Test
+    public void TestScaniaStartEngineWithRaisedBed(){
+        for(int i = 0; i < 9; i++) {
+            scania.raiseBed();
+        }
+        scania.startEngine();
+        assertEquals(scania.getCurrentSpeed(), 0, 0.0001);
     }
 
 }

@@ -1,9 +1,11 @@
 //Todo gör minst ett JUnit-test
 
+import java.awt.*;
+
 public class Scania extends Car implements HasBed{
-    private final Bed bed;
+    protected final Bed bed;
     public Scania() {
-        super(2, color.red, 230, "Scania R 730" );
+        super(2, Color.red, 230, "Scania R 730" );
         bed = new Bed();
         stopEngine();
     }
@@ -26,8 +28,6 @@ public class Scania extends Car implements HasBed{
     public void startEngine() {
         if (bed.getAngle() == 0) {
             super.startEngine();
-        } else {
-            System.out.println("Lower trailer before starting engine.");
         }
     }
 

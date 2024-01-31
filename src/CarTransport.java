@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 public class CarTransport extends Car implements HasBed{
     private final ArrayList<Car> carLoad;
@@ -5,7 +6,7 @@ public class CarTransport extends Car implements HasBed{
     private final int capacity;
 
     public CarTransport() {
-        super(2,color.yellow,250,"Långtradera modell 1");
+        super(2, Color.yellow,250,"Långtradare modell 1");
         this.capacity = 10;
         bed = new Bed();
         carLoad = new ArrayList<>();

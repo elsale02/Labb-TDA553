@@ -1,24 +1,29 @@
 import java.util.ArrayList;
+import java.util.List;
 
-public class AutoRepairShop {
-    private final ArrayList<Car> carBays;
-    private final int maxBays;
-    private final ArrayList<String> allowedModels;
-    public AutoRepairShop(int maxBays, ArrayList<String> allowedModels) {
+
+public class AutoRepairShop <T extends Car>  {
+
+    private final ArrayList<T> carBays;
+    private int maxBays;
+    public AutoRepairShop(int maxBays){
         this.maxBays = maxBays;
         carBays = new ArrayList<>();
-        this.allowedModels = allowedModels;
+    }
+    public AutoRepairShop(T[] cars){
+        this.maxBays = cars.length;
+        carBays = new ArrayList<>(List.of(cars));
+    }
+    public int getCarCount(){
+        return carBays.size();
     }
 
-    public void storeCar(Car car){
-        if(allowedModels.contains(car.modelName) && carBays.size() < maxBays) {
+    public void storeCar(T car){
+        if(carBays.size() < maxBays) {
             carBays.add(car);
         }
     }
-    public void removeCar(){
-        System.out.println(carBays.getClass());
-        carBays.removeLast();
-
+    public void removeCar(T car){
+        carBays.remove(car);
     }
-
 }
