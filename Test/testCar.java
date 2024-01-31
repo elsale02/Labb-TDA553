@@ -5,10 +5,21 @@ import java.awt.*;
 public class testCar {
     private Saab95 saab;
     private Volvo240 volvo;
+    private Scania scania;
+
     @Before
     public void setup(){
         saab = new Saab95();
         volvo = new Volvo240();
+        scania = new Scania();
+    }
+
+    //TODO Scania test
+    @Test
+    public void testRaiseTrailer(){
+        Scania scania = new Scania();
+        scania.raiseBed();
+        assertTrue(scania.bed.getAngle() == 70);
     }
 
     @Test
