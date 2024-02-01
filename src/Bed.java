@@ -4,18 +4,9 @@ public class Bed implements HasBed {
     public Bed() {
     }
 
-    public void setAngle(int angle) {
-        this.angle = angle;
-    }
-    public int getAngle() {
-        return this.angle;
-    }
     @Override
-    public void raiseBed() {
-        angle = 70;
-    }
+    public void lowerBed(){}
+
     @Override
-    public void lowerBed() {
-        angle = 0;
-    }
+    public void raiseBed(){}
 }

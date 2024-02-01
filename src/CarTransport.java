@@ -1,24 +1,25 @@
 import java.awt.*;
 import java.util.ArrayList;
-public class CarTransport extends Car implements HasBed{
+public class CarTransport extends Truck implements HasBed{
     private final ArrayList<Car> carLoad;
-    private final Bed bed;
     private final int capacity;
+    private boolean isRaised;
 
     public CarTransport() {
-        super(2, Color.yellow,250,"Långtradare modell 1");
+        super(2, Color.yellow,250,"Långtradare modell 1", new Bed());
         this.capacity = 10;
-        bed = new Bed();
         carLoad = new ArrayList<>();
+    }
+    public ArrayList<Car> getCarLoad(){
+        return this.carLoad;
     }
 
     @Override
     public void move() {
         super.move();
         for(Car car : carLoad) {
-            car.currentSpeed = this.currentSpeed;
-            car.direction = this.direction;
-            car.move();
+            car.x = this.x;
+            car.y = this.y;
         }
     }
 
@@ -31,19 +32,19 @@ public class CarTransport extends Car implements HasBed{
     @Override
     public void lowerBed() {
         if(currentSpeed == 0) {
-            bed.setAngle(0);
+            isRaised = false;
         }
     }
 
     @Override
     public void raiseBed() {
         if(currentSpeed == 0) {
-            bed.setAngle(70);
+            isRaised = true;
         }
     }
 
     public void releaseCar() {
-        if(bed.getAngle() == 0) {
+        if(!isRaised) {
             if (!carLoad.isEmpty()) {
                 Car releasedCar = carLoad.removeFirst();
                 releasedCar.y--;
@@ -54,10 +55,11 @@ public class CarTransport extends Car implements HasBed{
     public void loadCar(Car car) {
         if(carLoad.size() < capacity) {
             double radius = 1;
-            // Only allow if car object is not CarTransport ad if bed is lowered
-            if (car.getClass() != CarTransport.class && bed.getAngle() == 0) {
+            if (!isRaised) {
                 if (Math.abs(car.x) <= radius && Math.abs(car.y) <= radius) {
                     carLoad.addFirst(car);
+                    car.x = this.x;
+                    car.y = this.y;
                 }
             }
         }

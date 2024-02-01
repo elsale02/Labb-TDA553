@@ -25,7 +25,7 @@ public class testCar {
     public void testRaiseBedScania(){
         Scania scania = new Scania();
         scania.raiseBed();
-        assertTrue(scania.bed.getAngle() >= 10 && scania.bed.getAngle() < 70);
+        assertTrue(scania.getAngle() >= 10 && scania.getAngle() < 70);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class testCar {
             scania.raiseBed();
         }
         scania.lowerBed();
-        assertTrue(scania.bed.getAngle() == 40);
+        assertTrue(scania.getAngle() == 40);
     }
     
 
@@ -54,14 +54,14 @@ public class testCar {
         saab.startEngine();
         saab.turnLeft();
         saab.move();
-        assertTrue(saab.x < 0.000);
+        assertTrue(saab.x < 0);
     }
     @Test
     public void testTurnRightThenMove(){
         saab.startEngine();
         saab.turnRight();
         saab.move();
-        assertTrue(saab.x > 0.000);
+        assertTrue(saab.x > 0);
     }
     @Test
     public void testTurnRightThenLeft(){
@@ -275,6 +275,31 @@ public class testCar {
         }
         scania.startEngine();
         assertEquals(scania.getCurrentSpeed(), 0, 0.0001);
+    }
+
+    @Test
+    public void TestCarTransportMoveWithLoadedCar(){
+        carTransport.startEngine();
+        carTransport.loadCar(volvo);
+        carTransport.move();
+        assertTrue(volvo.y > 0);
+    }
+
+    @Test
+    public void TestCarTransportReleaseCar(){
+        carTransport.loadCar(volvo);
+        carTransport.releaseCar();
+        assertTrue(volvo.y < 0);
+    }
+
+    @Test
+    public void TestCarTransportLoadOutOfRange(){
+        volvo.startEngine();
+        for(int i = 0; i < 1000; i++) {
+            volvo.move();
+        }
+        carTransport.loadCar(volvo);
+        assertTrue(carTransport.getCarLoad().isEmpty());
     }
 
 }
