@@ -5,7 +5,7 @@ public abstract class Vehicle implements Movable {
     protected final double enginePower; // Engine power of the car
     protected double currentSpeed; // The current speed of the car
     private Color color; // Color of the car
-    private final String modelName; // The car model name
+    protected final String modelName; // The car model name
     protected double x = 0;
     protected double y = 0;
     protected int direction = 0; // 0 = Upp, 1 == Höger, 2 = Ner, 3 = Vänster
