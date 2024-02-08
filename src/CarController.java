@@ -44,6 +44,18 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Car car : cars) {
+                // When hit wall: stop, turn around, then start again
+                boolean isOutOfFrame = car.x >= frame.getWidth() || car.x < 0 || car.y >= frame.getHeight() - 150 || car.y < 0;
+                if(isOutOfFrame) {
+                    car.stopEngine();
+                    car.turnRight();
+                    car.turnRight();
+                    car.startEngine();
+                    while(isOutOfFrame){
+                        isOutOfFrame = car.x >= frame.getWidth() || car.x < 0 || car.y >= frame.getHeight() - 150 || car.y < 0;
+                        car.move();
+                    }
+                }
                 car.move();
                 int x = (int) Math.round(car.x);
                 int y = (int) Math.round(car.y);
@@ -59,6 +71,12 @@ public class CarController {
         double gas = ((double) amount) / 100;
         for (Car car : cars) {
             car.gas(gas);
+        }
+    }
+    void brake(int amount) {
+        double brake = ((double) amount) / 100;
+        for (Car car : cars) {
+            car.brake(brake);
         }
     }
 }
