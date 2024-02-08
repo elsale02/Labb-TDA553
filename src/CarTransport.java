@@ -64,4 +64,6 @@ public class CarTransport extends Truck implements HasBed{
             }
         }
     }
+
+
 }
