@@ -26,7 +26,6 @@ public class CarController {
     Saab95 saab = new Saab95();
     Scania scania = new Scania();
     ArrayList<Vehicle> cars = new ArrayList<>();
-    cars.add(volvo);
 
     //methods:
 
@@ -37,6 +36,14 @@ public class CarController {
         cc.cars.add(new Volvo240());
         cc.cars.add(new Saab95());
         cc.cars.add(new Scania());
+
+        cc.cars.get(0).x = 0; cc.cars.get(0).y = 0;
+        cc.cars.get(1).x = 0; cc.cars.get(1).y = 100;
+        cc.cars.get(2).x = 0; cc.cars.get(2).y = 200;
+
+//        for(Vehicle car : cc.cars) {
+//            car.direction = 1;
+//        }
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);

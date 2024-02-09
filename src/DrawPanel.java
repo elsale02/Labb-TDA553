@@ -23,15 +23,14 @@ public class DrawPanel extends JPanel{
     //Point volvoWorkshopPoint = new Point(300,300);
 
     // TODO: Make this general for all cars
-    void moveit(int x, int y){
-        for(Point point : points) {
-            point.x = x;
-            point.y = y;
-        }
+    void moveit(int i, int x, int y){
+        points[i].x = x;
+        points[i].y = y;
     }
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {
+
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
