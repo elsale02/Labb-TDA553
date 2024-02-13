@@ -11,8 +11,8 @@ public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
     BufferedImage[] images = new BufferedImage[4];
-    Point[] points = new Point[] {new Point(0,0),
-                                  new Point(0,100),
+    static Point[] points = new Point[] {new Point(0,0),
+                                  new Point(0,300),
                                   new Point(0,200),
                                   new Point(300,300)};
     //BufferedImage volvoImage;
@@ -50,7 +50,6 @@ public class DrawPanel extends JPanel{
         {
             ex.printStackTrace();
         }
-
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself
@@ -63,5 +62,9 @@ public class DrawPanel extends JPanel{
         }
        // g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
        // g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
+    }
+
+    public static int[] getImageCoordinates(int index) {
+        return new int[] {points[index].x, points[index].y};
     }
 }

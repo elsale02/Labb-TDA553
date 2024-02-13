@@ -22,10 +22,8 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    Volvo240 volvo = new Volvo240();
-    Saab95 saab = new Saab95();
-    Scania scania = new Scania();
     ArrayList<Vehicle> cars = new ArrayList<>();
+    AutoRepairShop<Volvo240> volvoWorkshop = new AutoRepairShop<>(10);
 
     //methods:
 
@@ -41,9 +39,9 @@ public class CarController {
         cc.cars.get(1).x = 0; cc.cars.get(1).y = 100;
         cc.cars.get(2).x = 0; cc.cars.get(2).y = 200;
 
-//        for(Vehicle car : cc.cars) {
-//            car.direction = 1;
-//        }
+        for(Vehicle car : cc.cars) {
+            car.direction = 1;
+        }
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -57,23 +55,47 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Vehicle car : cars) {
+            // HEIGHT and WIDTH are constants based on the frame's height and width, but modified so that the
+            // images stay completely inside the frame. 110 and 150 are experimentally found
+            final int WIDTH = frame.getWidth() - 110;
+            final int HEIGHT = frame.getHeight() - 150;
+            final int RADIUS = 100;
+            int workshopX = DrawPanel.getImageCoordinates(3)[0];
+            int workshopY = DrawPanel.getImageCoordinates(3)[1];
+
+            // Make sure the cars cannot go outside the frame
+            for (int i =0; i < cars.size(); i++) {
+                Vehicle car = cars.get(i);
+
                 // When hit wall: stop, turn around, then start again
-                boolean isOutOfFrame = car.x >= frame.getWidth() || car.x < 0 || car.y >= frame.getHeight() - 150 || car.y < 0;
+                boolean isOutOfFrame = car.x >= WIDTH || car.x < 0 || car.y >= HEIGHT || car.y < 0;
                 if(isOutOfFrame) {
                     car.stopEngine();
                     car.turnRight();
                     car.turnRight();
                     car.startEngine();
                     while(isOutOfFrame){
-                        isOutOfFrame = car.x >= frame.getWidth() || car.x < 0 || car.y >= frame.getHeight() - 150 || car.y < 0;
+                        isOutOfFrame = car.x >= WIDTH || car.x < 0 || car.y >= HEIGHT || car.y < 0;
                         car.move();
                     }
                 }
+                
+                // Interactions with workshop
+                if(Math.abs(car.x - workshopX) < RADIUS && Math.abs(car.y - workshopY) < RADIUS) {
+                    if(car instanceof Volvo240) {
+                        volvoWorkshop.storeCar((Volvo240) car);
+                        car.x = workshopX;
+                        car.y = workshopY;
+                        car.stopEngine();
+                    }
+                }
+                
+                // Move the car according to its currentSpeed
                 car.move();
                 int x = (int) Math.round(car.x);
                 int y = (int) Math.round(car.y);
-                frame.drawPanel.moveit(x, y);
+
+                frame.drawPanel.moveit(i,x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -119,6 +141,16 @@ public class CarController {
             if (car instanceof Scania) {
                 ((Scania) car).lowerBed();
             }
+        }
+    }
+    void startEngine() {
+        for(Vehicle car : cars) {
+            car.startEngine();
+        }
+    }
+    void stopEngine() {
+        for(Vehicle car : cars) {
+            car.stopEngine();
         }
     }
 }

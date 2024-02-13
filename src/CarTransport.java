@@ -1,6 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
-public class CarTransport extends Truck implements HasBed{
+public class CarTransport extends Truck {
     private final ArrayList<Car> carLoad;
     private final int capacity;
     private boolean isRaised;
