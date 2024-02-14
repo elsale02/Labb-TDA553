@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class AutoRepairShop <T extends Car>  {
-
     private final ArrayList<T> carBays;
     private int maxBays;
     public AutoRepairShop(int maxBays){
@@ -17,7 +15,6 @@ public class AutoRepairShop <T extends Car>  {
     public int getCarCount(){
         return carBays.size();
     }
-
     public void storeCar(T car){
         if(carBays.size() < maxBays) {
             carBays.add(car);

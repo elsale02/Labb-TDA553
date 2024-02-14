@@ -39,69 +39,56 @@ public abstract class Vehicle implements Movable {
                 throw new IllegalArgumentException("Direction out of range [0,3]");
         }
     }
-
     @Override
     public void turnLeft() {
         direction = (direction + 3) % 4;
     }
-
     @Override
     public void turnRight() {
         direction = (direction + 1) % 4;
     }
-
     public int getNrDoors(){
         return nrDoors;
     }
-
     public double getEnginePower(){
         return enginePower;
     }
-
     public double getCurrentSpeed(){
         return currentSpeed;
     }
-
     public Color getColor(){
         return color;
     }
-
     public void setColor(Color clr){
         color = clr;
     }
-
     public void startEngine(){
         currentSpeed = 0.1;
     }
-
     public void stopEngine(){
         currentSpeed = 0;
     }
-
     public abstract double speedFactor();
-
     public void incrementSpeed(double amount){
-        if(getCurrentSpeed() < 0){
+        if(getCurrentSpeed() <= 0){
             currentSpeed = 0;
+        } else {
+            currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
         }
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
-
     }
-
     public void decrementSpeed(double amount){
-        if (getCurrentSpeed() > enginePower){
+        if (getCurrentSpeed() >= enginePower){
             currentSpeed = enginePower;
+        } else {
+            currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
         }
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
     }
-
     public void gas(double amount){
         if(amount < 0 || amount > 1){
             throw new IllegalArgumentException("Wrong gas amount. Insert amount between 0 and 1");
         }
         incrementSpeed(amount);
     }
-
     public void brake(double amount){
         if(amount < 0 || amount > 1){
             throw new IllegalArgumentException("Wrong break amount. Insert amount between 0 and 1");

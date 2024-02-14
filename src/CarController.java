@@ -40,7 +40,7 @@ public class CarController {
         cc.cars.get(2).x = 0; cc.cars.get(2).y = 200;
 
         for(Vehicle car : cc.cars) {
-            car.direction = 1;
+            car.turnRight();
         }
 
         // Start a new view and send a reference of self
@@ -139,7 +139,9 @@ public class CarController {
     void lowerBed(){
         for(Vehicle car : cars){
             if (car instanceof Scania) {
+                while(((Scania) car).getAngle() > 0) {
                 ((Scania) car).lowerBed();
+                }
             }
         }
     }

@@ -1,12 +1,7 @@
 public class Bed implements HasBed {
-    private int angle;
-
-    public Bed() {
-    }
-
+    public Bed() {}
     @Override
     public void lowerBed(){}
-
     @Override
     public void raiseBed(){}
 }
