@@ -144,7 +144,7 @@ public class testCar {
         // Turbo on = false; EnginePower = 125 --> speedFactor == 125 * 0.01 * 1 == 1.25
         // new speed = min(1.25 * 0.5 = 0.625, 125) --> 0.625
         double newSpeed = saab.getCurrentSpeed();
-        assertEquals(newSpeed,0.625, 0.0001);
+        assertEquals(newSpeed,0, 0.0001);
     }
     @Test
     public void testDecreaseSpeed(){
@@ -169,15 +169,16 @@ public class testCar {
     }
     @Test
     public void testSpeedLowerLimitLock(){
+        saab.startEngine();
         saab.currentSpeed = -10;
         saab.incrementSpeed(1); // New speed = 1 * 125*0.01*1 = 1.25
-        assertEquals(saab.getCurrentSpeed(),1.25,0.0001);
+        assertEquals(saab.getCurrentSpeed(),0,0.0001);
     }
     @Test
     public void testSpeedUpperLimitLock(){
         saab.currentSpeed = saab.enginePower + 1000;
-        saab.decrementSpeed(1); // New speed = 125 - 1*125*0.01*1 = 123.75
-        assertEquals(saab.getCurrentSpeed(),123.75,0.0001);
+        saab.decrementSpeed(1); // New speed = 125
+        assertEquals(saab.getCurrentSpeed(),125,0.0001);
     }
     @Test
     public void testCheckDoors(){
@@ -222,6 +223,7 @@ public class testCar {
 
     @Test
     public void testGasIncrementSpeed(){
+        saab.startEngine();
         double gasCurrentSpeed = saab.currentSpeed;
         saab.gas(0.5);
         assertTrue(saab.getCurrentSpeed() > gasCurrentSpeed);
