@@ -1,16 +1,17 @@
-import java.util.ArrayList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 public class AutoRepairShop <T extends Car>  {
-    private final ArrayList<T> carBays;
+    private final Deque<T> carBays;
     private int maxBays;
     public AutoRepairShop(int maxBays){
         this.maxBays = maxBays;
-        carBays = new ArrayList<>();
+        carBays = new ArrayDeque<>();
     }
     public AutoRepairShop(T[] cars){
         this.maxBays = cars.length;
-        carBays = new ArrayList<>(List.of(cars));
+        carBays = new ArrayDeque<>(List.of(cars));
     }
     public int getCarCount(){
         return carBays.size();

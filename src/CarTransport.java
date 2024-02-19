@@ -1,15 +1,17 @@
 import java.awt.*;
 import java.util.ArrayList;
-public class CarTransport extends Truck implements HasBed {
-    private final ArrayList<Car> carLoad;
+import java.util.List;
+
+public class CarTransport extends Truck  {
+    private final List<Car> carLoad;
     private final int capacity;
     private boolean isRaised;
     public CarTransport() {
-        super(2, Color.yellow,250,"Långtradare modell 1", new Bed());
+        super(2, Color.yellow,250,"Långtradare modell 1");
         this.capacity = 10;
         carLoad = new ArrayList<>();
     }
-    public ArrayList<Car> getCarLoad(){
+    public List<Car> getCarLoad(){
         return this.carLoad;
     }
     @Override

@@ -1,9 +1,9 @@
 import java.awt.*;
 
-public class Scania extends Truck implements HasBed {
+public class Scania extends Truck {
     private int angle;
     public Scania() {
-        super(2, Color.red, 230, "Scania R 730", new Bed());
+        super(2, Color.red, 230, "Scania R 730");
         stopEngine();
     }
     @Override
