@@ -2,7 +2,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
-public class AutoRepairShop <T extends Car>  {
+public class AutoRepairShop <T extends Car> implements Building {
+    private int x;
+    private int y;
     private final Deque<T> carBays;
     private int maxBays;
     public AutoRepairShop(int maxBays){
@@ -13,6 +15,24 @@ public class AutoRepairShop <T extends Car>  {
         this.maxBays = cars.length;
         carBays = new ArrayDeque<>(List.of(cars));
     }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+    @Override
+    public int getY() {
+        return y;
+    }
+    @Override
+    public void setX(int x) {
+        this.x = x;
+    }
+    @Override
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public int getCarCount(){
         return carBays.size();
     }

@@ -30,9 +30,10 @@ public class CarController {
     List<Vehicle> cars = new ArrayList<>();
     AutoRepairShop<Volvo240> volvoWorkshop = new AutoRepairShop<>(10);
 
+
     //methods:
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // Instance of this class
         //CarController cc = new CarController();
 
@@ -49,12 +50,13 @@ public class CarController {
         }
 
         // Start a new view and send a reference of self
-
+*/
 
         // Start the timer
+    public static void inputListeners(){
         carC.timer.start();
 
-        // Define what the buttons should do if they are pressed
+        // Define what the buttons should do if they are pressed.
         frame.gasSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 frame.gasAmount = (int) ((JSpinner)e.getSource()).getValue();
@@ -131,7 +133,7 @@ public class CarController {
             int workshopX = DrawPanel.getImageCoordinates(3)[0];
             int workshopY = DrawPanel.getImageCoordinates(3)[1];
 
-            for (int i =0; i < cars.size(); i++) {
+            for (int i = 0; i < cars.size(); i++) {
                 Vehicle car = cars.get(i);
 
                 // Make sure the cars cannot go outside the frame

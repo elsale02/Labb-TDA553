@@ -1,21 +1,30 @@
-public class CarFactory {
-    private final Vehicle vehicle;
-    private int x;
-    private int y;
-    private int direction;
-    public CarFactory(Vehicle vehicle, int x, int y, int direction) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
-        this.vehicle = vehicle;
+public abstract class CarFactory {
+    public static Volvo240 createVolvo(int x, int y, int direction) {
+        Volvo240 volvo = new Volvo240();
+        volvo.x = x;
+        volvo.y = y;
+        volvo.direction = direction;
+        return volvo;
     }
-    public int getX() {
-        return this.x;
+    public static Saab95 createSaab(int x, int y, int direction) {
+        Saab95 saab = new Saab95();
+        saab.x = x;
+        saab.y = y;
+        saab.direction = direction;
+        return saab;
     }
-    public int getY() {
-        return this.y;
+    public static Scania createScania(int x, int y, int direction) {
+        Scania scania = new Scania();
+        scania.x = x;
+        scania.y = y;
+        scania.direction = direction;
+        return scania;
     }
-    public int getDirection() {
-        return this.direction;
+    public static CarTransport createCarTransport(int x, int y, int direction) {
+        CarTransport carTransport = new CarTransport();
+        carTransport.x = x;
+        carTransport.y = y;
+        carTransport.direction = direction;
+        return carTransport;
     }
 }
