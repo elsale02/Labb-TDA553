@@ -9,7 +9,7 @@ public class Application {
         vehicles.add(CarFactory.createSaab(0,100,1));
         vehicles.add(CarFactory.createScania(0,200,1));
 
-        buildings.add(BuildingFactory.createWorkshop(300,300,10));
+        buildings.add(BuildingFactory.createVolvoWorkshop(300,300,10));
 
         // // // // // // // // // //
 
