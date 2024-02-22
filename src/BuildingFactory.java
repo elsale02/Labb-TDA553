@@ -5,4 +5,10 @@ public abstract class BuildingFactory {
         workshop.setY(y);
         return workshop;
     }
+    public static AutoRepairShop<Car> createCarWorkshop(int x, int y, int maxBays) {
+        AutoRepairShop<Car> workshop = new AutoRepairShop<>(maxBays);
+        workshop.setX(x);
+        workshop.setY(y);
+        return workshop;
+    }
 }

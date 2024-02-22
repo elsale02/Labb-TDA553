@@ -13,12 +13,12 @@ public class testCar {
 
     @Before
     public void setup(){
-        saab = new Saab95();
-        volvo = new Volvo240();
-        scania = new Scania();
-        volvoRepair = new AutoRepairShop<>(10);
-        carRepair = new AutoRepairShop<>(10);
-        carTransport = new CarTransport();
+        saab = (Saab95) CarFactory.createSaab(0,0,0);
+        volvo = (Volvo240) CarFactory.createVolvo(0,0,0);
+        scania = (Scania) CarFactory.createScania(0,0,0);
+        volvoRepair = BuildingFactory.createVolvoWorkshop(0,0,10);
+        carRepair = BuildingFactory.createCarWorkshop(0,0,10);
+        carTransport = (CarTransport) CarFactory.createCarTransport(0,0,0);
     }
 
     @Test
