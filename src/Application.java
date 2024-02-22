@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        List<Vehicle> vehicles = new ArrayList<>();
+        VehicleComposite vehicles = new VehicleComposite();
         List<Building> buildings = new ArrayList<>();
 
         vehicles.addCar(CarFactory.createVolvo(0,0,1));
