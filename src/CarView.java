@@ -89,7 +89,6 @@ public class CarView extends JFrame{
         this.add(stopButton);
 
 
-
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 

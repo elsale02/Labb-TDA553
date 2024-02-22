@@ -8,6 +8,7 @@ public class VehicleComposite implements Movable {
                                                         CarFactory.createSaab(0,0,0),
                                                         CarFactory.createScania(0,0,0)};
     private List<Vehicle> carList = new ArrayList<>();
+
     public void addCar(Vehicle vehicle){
         if(carList.size() < 10) {
             carList.add(vehicle);
@@ -23,10 +24,6 @@ public class VehicleComposite implements Movable {
         if(!carList.isEmpty()) {
             carList.remove(vehicle);
         }
-    }
-
-    public void setColor(Vehicle vehicle) {
-
     }
 
     @Override
