@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class VehicleComposite implements Movable {
+public class VehicleComposite implements Movable, VehicleObservable {
     private final Random random = new Random();
     private final Vehicle[] CAR_TYPES = new Vehicle[] {CarFactory.createVolvo(0,0,0),
                                                         CarFactory.createSaab(0,0,0),
@@ -13,6 +13,12 @@ public class VehicleComposite implements Movable {
         if(carList.size() < 10) {
             carList.add(vehicle);
         }
+    }
+    public Vehicle getCar(int index) {
+        return carList.get(index);
+    }
+    public int getCarCount() {
+        return carList.size();
     }
 
     public void addCar(){
@@ -30,6 +36,7 @@ public class VehicleComposite implements Movable {
     public void move() {
         for(Vehicle car : carList) {
             car.move();
+            stateChanged( (int) car.x, (int) car.y);
         }
     }
     @Override
@@ -68,6 +75,23 @@ public class VehicleComposite implements Movable {
     public void brake(double amount) {
         for(Vehicle car : carList) {
             car.brake(amount);
+        }
+    }
+
+    @Override
+    public void subscribe(VehicleObserver subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    @Override
+    public void unsubscribe(VehicleObserver subscriber) {
+        subscribers.remove(subscriber);
+    }
+
+    @Override
+    public void stateChanged(int x, int y){
+        for(VehicleObserver subscriber : VehicleObservable.subscribers) {
+            subscriber.update(x, y);
         }
     }
 }
