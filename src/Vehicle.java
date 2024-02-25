@@ -1,13 +1,13 @@
 import java.awt.*;
 
-public abstract class Vehicle implements Movable {
+public abstract class Vehicle implements Movable, VehicleObservable {
     private final int nrDoors; // Number of doors on the car
     protected final double enginePower; // Engine power of the car
     protected double currentSpeed; // The current speed of the car
     private Color color; // Color of the car
     protected final String modelName; // The car model name
-    protected double x = 0;
-    protected double y = 0;
+    protected int x = 0;
+    protected int y = 0;
     protected int direction = 0; // 0 = Upp, 1 == Höger, 2 = Ner, 3 = Vänster
     public Vehicle(int nrDoors, Color color, double enginePower, String modelName) {
         this.nrDoors = nrDoors;
@@ -38,6 +38,7 @@ public abstract class Vehicle implements Movable {
             default:
                 throw new IllegalArgumentException("Direction out of range [0,3]");
         }
+        stateChanged();
     }
     @Override
     public void turnLeft() {
@@ -94,5 +95,21 @@ public abstract class Vehicle implements Movable {
             throw new IllegalArgumentException("Wrong break amount. Insert amount between 0 and 1");
         }
         decrementSpeed(amount);
+    }
+    @Override
+    public void subscribe(VehicleObserver subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    @Override
+    public void unsubscribe(VehicleObserver subscriber) {
+        subscribers.remove(subscriber);
+    }
+
+    @Override
+    public void stateChanged(){
+        for(VehicleObserver subscriber : VehicleObservable.subscribers) {
+            subscriber.update();
+        }
     }
 }

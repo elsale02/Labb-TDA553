@@ -14,17 +14,24 @@ import java.util.ArrayList;
 * modifying the model state and the updating the view.
  */
 
-public class CarController implements ActionListener, VehicleObserver {
+public class CarController implements VehicleObserver {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
-    //private final int delay = 50;
+    private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
-    //private Timer timer = new Timer(delay, new TimerListener());
+    private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
-    CarView frame = new CarView("CarSim 1.0");
+    private final CarView frame = new CarView("CarSim 1.0");
+    // HEIGHT and WIDTH are constants based on the frame's height and width, but modified so that the
+    // images stay completely inside the frame. 110 and 150 are experimentally found
+    private final int WIDTH = frame.getWidth() - 110;
+    private final int HEIGHT = frame.getHeight() - 150;
+
+    // Pick-up range for the workshops
+    private final int RADIUS = 100;
     //static CarController carC = new CarController();
 
     // A list of cars, modify if needed
@@ -38,9 +45,9 @@ public class CarController implements ActionListener, VehicleObserver {
 
     //methods:
 
-        // Start the timer
     public void inputListeners() {
-        //carC.timer.start();
+        // Start the timer
+        timer.start();
 
         // Define what the buttons should do if they are pressed.
         frame.gasSpinner.addChangeListener(new ChangeListener() {
@@ -98,68 +105,43 @@ public class CarController implements ActionListener, VehicleObserver {
         });
     }
     @Override
-    public void update(int x, int y) {
-        cars.move();
-        frame.repaint();
-    }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        cars.move();
-        frame.repaint();
-    }
-    /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
-/*
-    private class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            // HEIGHT and WIDTH are constants based on the frame's height and width, but modified so that the
-            // images stay completely inside the frame. 110 and 150 are experimentally found
-            final int WIDTH = frame.getWidth() - 110;
-            final int HEIGHT = frame.getHeight() - 150;
+    public void update() {
+        for (int i = 0; i < cars.getCarCount(); i++) {
+            Vehicle car = cars.getCar(i);
 
-            // Pick-up range for the workshops
-            final int RADIUS = 100;
-
-            int workshopX = DrawPanel.getImageCoordinates(3)[0];
-            int workshopY = DrawPanel.getImageCoordinates(3)[1];
-
-            /*for (int i = 0; i < cars.size(); i++) {
-                Vehicle car = cars.get(i);
-
-                // Make sure the cars cannot go outside the frame
-                // When hit wall: stop, turn around, then start again
-                boolean isOutOfFrame = car.x >= WIDTH || car.x < 0 || car.y >= HEIGHT || car.y < 0;
-                if(isOutOfFrame) {
-                    car.stopEngine();
-                    car.turnRight();
-                    car.turnRight();
-                    car.startEngine();
-                    while(isOutOfFrame){
-                        isOutOfFrame = car.x >= WIDTH || car.x < 0 || car.y >= HEIGHT || car.y < 0;
-                        car.move();
-                    }
-                }
-                
-                // Interactions with workshop
-                if(Math.abs(car.x - workshopX) < RADIUS && Math.abs(car.y - workshopY) < RADIUS) {
-                    if(car instanceof Volvo240) {
-                        volvoWorkshop.storeCar((Volvo240) car);
-                        car.x = workshopX;
-                        car.y = workshopY;
-                        car.stopEngine();
-                    }
-                }
-                
-                // Move the car according to its currentSpeed
-                car.move();
-                int x = (int) Math.round(car.x);
-                int y = (int) Math.round(car.y);
-                frame.drawPanel.moveit(i, x, y);
-                frame.drawPanel.repaint();
+            // Make sure the cars cannot go outside the frame
+            // When hit wall: stop, turn around, then start again
+            boolean isOutOfFrame = car.x >= WIDTH || car.x < 0 || car.y >= HEIGHT || car.y < 0;
+            if (isOutOfFrame) {
+                car.turnRight();
+                car.turnRight();
             }
+
+            // Interactions with workshop
+            if (car instanceof Volvo240) {
+                for (Building building : buildings) {
+                    if (building instanceof AutoRepairShop<?>) {
+                        if (Math.abs(car.x - building.getX()) < RADIUS && Math.abs(car.y - building.getY()) < RADIUS) {
+                            ((AutoRepairShop<Volvo240>) building).storeCar((Volvo240) car);
+                            car.x = building.getX();
+                            car.y = building.getY();
+                            car.stopEngine();
+                        }
+                    }
+                }
+            }
+
+            // Update graphics positions
+            frame.drawPanel.moveit(i, car.x, car.y);
         }
-    }*/
+        frame.repaint();
+    }
+    private class TimerListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            cars.move();
+        }
+    }
 
     // Calls the gas method for each car once
     void gas(int amount) {

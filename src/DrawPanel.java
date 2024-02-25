@@ -7,17 +7,17 @@ import javax.swing.*;
 
 // This panel represents the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel implements VehicleObserver {
+public class DrawPanel extends JPanel /*implements VehicleObserver*/ {
     BufferedImage[] images = new BufferedImage[4];
     static Point[] points = new Point[] {new Point(0,0),
                                   new Point(0,100),
                                   new Point(0,200),
                                   new Point(300,300)};
 
-    /*void moveit(int i, int x, int y){
+    void moveit(int i, int x, int y){
         points[i].x = x;
         points[i].y = y;
-    }*/
+    }
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {
@@ -49,16 +49,6 @@ public class DrawPanel extends JPanel implements VehicleObserver {
         super.paintComponent(g);
         for(int i = 0; i < images.length; i++) {
             g.drawImage(images[i],points[i].x,points[i].y,null);
-        }
-    }
-    public static int[] getImageCoordinates(int index) {
-        return new int[] {points[index].x, points[index].y};
-    }
-    @Override
-    public void update(int x, int y) {
-        for (Point point : points) {
-            point.x = x;
-            point.y = y;
         }
     }
 }
