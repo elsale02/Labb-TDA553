@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class VehicleComposite implements Movable {
     private final Random random = new Random();
-    private final Vehicle[] CAR_TYPES = new Vehicle[] {CarFactory.createVolvo(0,0,0),
-                                                        CarFactory.createSaab(0,100,0),
-                                                        CarFactory.createScania(0,200,0)};
+    private final Vehicle[] CAR_TYPES = new Vehicle[] {CarFactory.createVolvo(0,0,1),
+                                                        CarFactory.createSaab(0,100,1),
+                                                        CarFactory.createScania(0,200,1)};
     private List<Vehicle> carList = new ArrayList<>();
 
     public void addCar(Vehicle vehicle){
@@ -26,9 +26,9 @@ public class VehicleComposite implements Movable {
         addCar(CAR_TYPES[index]);
     }
 
-    public void removeCar(Vehicle vehicle){
+    public void removeCar(){
         if(!carList.isEmpty()) {
-            carList.remove(vehicle);
+            carList.removeFirst();
         }
     }
 

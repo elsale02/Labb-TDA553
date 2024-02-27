@@ -103,6 +103,18 @@ public class CarController implements VehicleObserver {
                 stopEngine();
             }
         });
+        frame.addCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addCar();
+            }
+        });
+        frame.removeCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeCar();
+            }
+        });
     }
     @Override
     public void update() {
@@ -190,4 +202,6 @@ public class CarController implements VehicleObserver {
     void stopEngine() {
         cars.stopEngine();
     }
+    void addCar() { cars.addCar();}
+    void removeCar() { cars.removeCar();}
 }
