@@ -3,16 +3,19 @@ import java.util.List;
 import java.util.Random;
 
 public class VehicleComposite implements Movable {
-    private final Random random = new Random();
-    private final Vehicle[] CAR_TYPES = new Vehicle[] {CarFactory.createVolvo(0,0,1),
+    //private final Random random = new Random();
+    /*private final Vehicle[] CAR_TYPES = new Vehicle[] {CarFactory.createVolvo(0,0,1),
                                                         CarFactory.createSaab(0,100,1),
-                                                        CarFactory.createScania(0,200,1)};
+                                                        CarFactory.createScania(0,200,1)};*/
     private List<Vehicle> carList = new ArrayList<>();
 
     public void addCar(Vehicle vehicle){
         if(carList.size() < 10) {
             carList.add(vehicle);
         }
+    }
+    public List<Vehicle> getCarList() {
+        return carList;
     }
     public Vehicle getCar(int index) {
         return carList.get(index);
@@ -22,13 +25,14 @@ public class VehicleComposite implements Movable {
     }
 
     public void addCar(){
-        int index = random.nextInt(CAR_TYPES.length);
-        addCar(CAR_TYPES[index]);
+        addCar(CarFactory.createVolvo(100,100,1));
+        //int index = random.nextInt(CAR_TYPES.length);
+        //addCar(CAR_TYPES[index]);
     }
 
     public void removeCar(){
         if(!carList.isEmpty()) {
-            carList.removeFirst();
+            carList.removeLast();
         }
     }
 

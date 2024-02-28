@@ -35,8 +35,8 @@ public class CarController implements VehicleObserver {
     //static CarController carC = new CarController();
 
     // A list of cars, modify if needed
-    VehicleComposite cars;
-    List<Building> buildings;
+     private VehicleComposite cars;
+     private List<Building> buildings;
 
     public CarController(VehicleComposite vehicles, List<Building> buildings){
         cars = vehicles;
@@ -105,9 +105,7 @@ public class CarController implements VehicleObserver {
         });
         frame.addCar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                addCar();
-            }
+            public void actionPerformed(ActionEvent e) {addCar();}
         });
         frame.removeCar.addActionListener(new ActionListener() {
             @Override

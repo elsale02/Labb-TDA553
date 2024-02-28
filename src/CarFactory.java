@@ -3,6 +3,7 @@ public abstract class CarFactory {
         Volvo240 volvo = new Volvo240();
         volvo.x = x;
         volvo.y = y;
+        DrawPanel.addPoint(x,y);
         volvo.direction = direction;
         return volvo;
     }
@@ -10,6 +11,7 @@ public abstract class CarFactory {
         Saab95 saab = new Saab95();
         saab.x = x;
         saab.y = y;
+        DrawPanel.addPoint(x,y);
         saab.direction = direction;
         return saab;
     }
@@ -17,6 +19,7 @@ public abstract class CarFactory {
         Scania scania = new Scania();
         scania.x = x;
         scania.y = y;
+        DrawPanel.addPoint(x,y);
         scania.direction = direction;
         return scania;
     }
@@ -24,6 +27,7 @@ public abstract class CarFactory {
         CarTransport carTransport = new CarTransport();
         carTransport.x = x;
         carTransport.y = y;
+        DrawPanel.addPoint(x,y);
         carTransport.direction = direction;
         return carTransport;
     }
