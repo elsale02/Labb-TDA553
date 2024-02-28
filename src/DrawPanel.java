@@ -54,7 +54,7 @@ public class DrawPanel extends JPanel {
 
             if(vehicleImages.length <= i){
                 g.drawImage(vehicleImages[0], vehiclePoints.get(i).x, vehiclePoints.get(i).y, null);
-            }else {
+            } else {
                 g.drawImage(vehicleImages[i], vehiclePoints.get(i).x, vehiclePoints.get(i).y, null);
             }
         }

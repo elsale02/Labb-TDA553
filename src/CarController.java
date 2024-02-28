@@ -121,11 +121,20 @@ public class CarController implements VehicleObserver {
             Vehicle car = cars.getCar(i);
 
             // Make sure the cars cannot go outside the frame
-            // When hit wall: stop, turn around, then start again
+            // When hit wall: turn around
             boolean isOutOfFrame = car.x >= WIDTH || car.x < 0 || car.y >= HEIGHT || car.y < 0;
             if (isOutOfFrame) {
                 car.turnRight();
                 car.turnRight();
+                if(car.x >= WIDTH) {
+                    car.x = WIDTH - 1;
+                } else if(car.x < 0) {
+                    car.x = 0;
+                } else if(car.y >= HEIGHT) {
+                    car.y = HEIGHT - 1;
+                } else if(car.y > 0) {
+                    car.y = 0;
+                }
             }
 
             // Interactions with workshop

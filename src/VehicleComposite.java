@@ -26,13 +26,15 @@ public class VehicleComposite implements Movable {
     }
 
     public void addCar(){
-        addCar(CarFactory.createVolvo(100,100,1));
+        if(carList.size() < 10) {
+            addCar(CarFactory.createVolvo(100, 100, 1));
+        }
         //int index = random.nextInt(CAR_TYPES.length);
         //addCar(CAR_TYPES[index]);
     }
 
     public void removeCar(){
-        if(carList.size() > 1) {
+        if(!carList.isEmpty()) {
             carList.removeLast();
             DrawPanel.vehiclePoints.removeLast();
         }
