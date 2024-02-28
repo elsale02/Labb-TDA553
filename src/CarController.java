@@ -32,7 +32,6 @@ public class CarController implements VehicleObserver {
 
     // Pick-up range for the workshops
     private final int RADIUS = 100;
-    //static CarController carC = new CarController();
 
     // A list of cars, modify if needed
      private VehicleComposite cars;
@@ -105,7 +104,9 @@ public class CarController implements VehicleObserver {
         });
         frame.addCar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {addCar();}
+            public void actionPerformed(ActionEvent e) {
+                    addCar();
+                }
         });
         frame.removeCar.addActionListener(new ActionListener() {
             @Override

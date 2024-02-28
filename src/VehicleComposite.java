@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -31,8 +32,9 @@ public class VehicleComposite implements Movable {
     }
 
     public void removeCar(){
-        if(!carList.isEmpty()) {
+        if(carList.size() > 1) {
             carList.removeLast();
+            DrawPanel.vehiclePoints.removeLast();
         }
     }
 

@@ -9,34 +9,19 @@ import javax.swing.*;
 import java.util.Random;
 // This panel represents the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel /*implements VehicleObserver*/ {
-    BufferedImage[] images = new BufferedImage[4];
-    /*static Point[] points = new Point[] {new Point(0,0),
-                                  new Point(0,100),
-                                  new Point(0,200),
-                                  new Point(300,300)};*/
-    //List<BufferedImage> images = new ArrayList<>();
-    private final static List<Point> points = new ArrayList<>();
+public class DrawPanel extends JPanel {
+    BufferedImage[] vehicleImages = new BufferedImage[3];
+    BufferedImage[] buildingImages = new BufferedImage[1];
+    public final static List<Point> vehiclePoints = new ArrayList<>();
+    public final static List<Point> buildingPoints = new ArrayList<>();
 
     void moveit(int i, int x, int y){
-        if( points.size() <= i){
-            points.add(new Point(x,y));
-        }
-        points.get(i).x = x;
-        points.get(i).y = y;
-    }
-
-    public static void addPoint(int x, int y) {
-        points.add(new Point(x,y));
+        vehiclePoints.get(i).x = x;
+        vehiclePoints.get(i).y = y;
     }
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {
-        points.add(new Point(0,0));
-        points.add(new Point(0,100));
-        points.add(new Point(0,200));
-        points.add(new Point(300,300));
-
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
@@ -48,10 +33,10 @@ public class DrawPanel extends JPanel /*implements VehicleObserver*/ {
 
             // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
             // if you are starting in IntelliJ.
-            images[0] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
-            images[1] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
-            images[2] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
-            images[3] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+            buildingImages[0] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+            vehicleImages[0] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+            vehicleImages[1] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
+            vehicleImages[2] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
         } catch (IOException ex)
         {
             ex.printStackTrace();
@@ -62,12 +47,15 @@ public class DrawPanel extends JPanel /*implements VehicleObserver*/ {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for(int i = 0; i < points.size(); i++) {
+        for(int i = 0; i < buildingImages.length; i++) {
+            g.drawImage(buildingImages[i], buildingPoints.get(i).x, buildingPoints.get(i).y, null);
+        }
+        for(int i = 0; i < vehiclePoints.size(); i++) {
 
-            if(images.length <= i){
-                g.drawImage(images[0], points.get(i).x, points.get(i).y, null);
+            if(vehicleImages.length <= i){
+                g.drawImage(vehicleImages[0], vehiclePoints.get(i).x, vehiclePoints.get(i).y, null);
             }else {
-                g.drawImage(images[i], points.get(i).x, points.get(i).y, null);
+                g.drawImage(vehicleImages[i], vehiclePoints.get(i).x, vehiclePoints.get(i).y, null);
             }
         }
     }
