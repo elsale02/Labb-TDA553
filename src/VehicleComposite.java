@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class VehicleComposite implements Movable {
-    //private final Random random = new Random();
+public class VehicleComposite implements Movable, VehicleObservable {
+    private final Random random = new Random();
     /*private final Vehicle[] CAR_TYPES = new Vehicle[] {CarFactory.createVolvo(0,0,1),
                                                         CarFactory.createSaab(0,100,1),
                                                         CarFactory.createScania(0,200,1)};*/
@@ -15,9 +15,6 @@ public class VehicleComposite implements Movable {
             carList.add(vehicle);
         }
     }
-    public List<Vehicle> getCarList() {
-        return carList;
-    }
     public Vehicle getCar(int index) {
         return carList.get(index);
     }
@@ -27,7 +24,7 @@ public class VehicleComposite implements Movable {
 
     public void addCar(){
         if(carList.size() < 10) {
-            addCar(CarFactory.createVolvo(100, 100, 1));
+            addCar(CarFactory.createVolvo(random.nextInt(200), random.nextInt(200), 1));
         }
         //int index = random.nextInt(CAR_TYPES.length);
         //addCar(CAR_TYPES[index]);
@@ -38,6 +35,7 @@ public class VehicleComposite implements Movable {
             carList.removeLast();
             DrawPanel.vehiclePoints.removeLast();
         }
+        stateChanged();
     }
 
     @Override
@@ -82,6 +80,23 @@ public class VehicleComposite implements Movable {
     public void brake(double amount) {
         for(Vehicle car : carList) {
             car.brake(amount);
+        }
+    }
+
+    @Override
+    public void subscribe(VehicleObserver subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    @Override
+    public void unsubscribe(VehicleObserver subscriber) {
+        subscribers.remove(subscriber);
+    }
+
+    @Override
+    public void stateChanged(){
+        for(VehicleObserver subscriber : VehicleObservable.subscribers) {
+            subscriber.update();
         }
     }
 }

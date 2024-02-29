@@ -65,7 +65,7 @@ public abstract class Vehicle implements Movable, VehicleObservable {
     }
     public void startEngine(){
         if(currentSpeed < 0.0001) {
-            currentSpeed = 0.1;
+        currentSpeed = 0.1;
         }
     }
     public void stopEngine(){
