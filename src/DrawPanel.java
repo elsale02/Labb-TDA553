@@ -12,12 +12,14 @@ import java.util.Random;
 public class DrawPanel extends JPanel {
     BufferedImage[] vehicleImages = new BufferedImage[3];
     BufferedImage[] buildingImages = new BufferedImage[1];
-    public final static List<Point> vehiclePoints = new ArrayList<>();
+    //public final static List<Point> vehiclePoints = new ArrayList<>();
     public final static List<Point> buildingPoints = new ArrayList<>();
 
     void moveit(int i, int x, int y){
-        vehiclePoints.get(i).x = x;
-        vehiclePoints.get(i).y = y;
+        VehicleComposite.carList.get(i).x = x;
+        VehicleComposite.carList.get(i).y = y;
+        //vehiclePoints.get(i).x = x;
+        //vehiclePoints.get(i).y = y;
     }
 
     // Initializes the panel and reads the images
@@ -50,12 +52,12 @@ public class DrawPanel extends JPanel {
         for(int i = 0; i < buildingImages.length; i++) {
             g.drawImage(buildingImages[i], buildingPoints.get(i).x, buildingPoints.get(i).y, null);
         }
-        for(int i = 0; i < vehiclePoints.size(); i++) {
+        for(int i = 0; i < VehicleComposite.carList.size(); i++) {
 
             if(vehicleImages.length <= i){
-                g.drawImage(vehicleImages[0], vehiclePoints.get(i).x, vehiclePoints.get(i).y, null);
+                g.drawImage(vehicleImages[0], VehicleComposite.carList.get(i).x, VehicleComposite.carList.get(i).y, null);
             } else {
-                g.drawImage(vehicleImages[i], vehiclePoints.get(i).x, vehiclePoints.get(i).y, null);
+                g.drawImage(vehicleImages[i], VehicleComposite.carList.get(i).x, VehicleComposite.carList.get(i).y, null);
             }
         }
     }

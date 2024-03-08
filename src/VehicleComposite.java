@@ -8,7 +8,7 @@ public class VehicleComposite implements Movable, VehicleObservable {
     /*private final Vehicle[] CAR_TYPES = new Vehicle[] {CarFactory.createVolvo(0,0,1),
                                                         CarFactory.createSaab(0,100,1),
                                                         CarFactory.createScania(0,200,1)};*/
-    private List<Vehicle> carList = new ArrayList<>();
+    public static List<Vehicle> carList = new ArrayList<>();
 
     public void addCar(Vehicle vehicle){
         if(carList.size() < 10) {
@@ -33,7 +33,7 @@ public class VehicleComposite implements Movable, VehicleObservable {
     public void removeCar(){
         if(!carList.isEmpty()) {
             carList.removeLast();
-            DrawPanel.vehiclePoints.removeLast();
+            //DrawPanel.vehiclePoints.removeLast();
         }
         stateChanged();
     }

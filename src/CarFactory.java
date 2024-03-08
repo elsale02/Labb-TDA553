@@ -6,7 +6,7 @@ public abstract class CarFactory {
         volvo.x = x;
         volvo.y = y;
         volvo.direction = direction;
-        DrawPanel.vehiclePoints.add(new Point(x,y));
+        //DrawPanel.vehiclePoints.add(new Point(x,y));
         return volvo;
     }
     public static Vehicle createSaab(int x, int y, int direction) {
@@ -14,7 +14,7 @@ public abstract class CarFactory {
         saab.x = x;
         saab.y = y;
         saab.direction = direction;
-        DrawPanel.vehiclePoints.add(new Point(x,y));
+        //DrawPanel.vehiclePoints.add(new Point(x,y));
         return saab;
     }
     public static Vehicle createScania(int x, int y, int direction) {
@@ -22,7 +22,7 @@ public abstract class CarFactory {
         scania.x = x;
         scania.y = y;
         scania.direction = direction;
-        DrawPanel.vehiclePoints.add(new Point(x,y));
+        //DrawPanel.vehiclePoints.add(new Point(x,y));
         return scania;
     }
     public static Vehicle createCarTransport(int x, int y, int direction) {
@@ -30,7 +30,7 @@ public abstract class CarFactory {
         carTransport.x = x;
         carTransport.y = y;
         carTransport.direction = direction;
-        DrawPanel.vehiclePoints.add(new Point(x,y));
+        //DrawPanel.vehiclePoints.add(new Point(x,y));
         return carTransport;
     }
 }
