@@ -11,9 +11,9 @@ import java.util.Random;
 
 public class DrawPanel extends JPanel {
     BufferedImage[] vehicleImages = new BufferedImage[3];
-    BufferedImage[] buildingImages = new BufferedImage[1];
+    BufferedImage buildingImage;
     //public final static List<Point> vehiclePoints = new ArrayList<>();
-    public final static List<Point> buildingPoints = new ArrayList<>();
+     static Point buildingPoint;
 
     void moveit(int i, int x, int y){
         VehicleComposite.carList.get(i).x = x;
@@ -35,10 +35,8 @@ public class DrawPanel extends JPanel {
 
             // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
             // if you are starting in IntelliJ.
-            buildingImages[0] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
-            vehicleImages[0] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
-            vehicleImages[1] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
-            vehicleImages[2] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
+            buildingImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+
         } catch (IOException ex)
         {
             ex.printStackTrace();
@@ -49,16 +47,15 @@ public class DrawPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for(int i = 0; i < buildingImages.length; i++) {
-            g.drawImage(buildingImages[i], buildingPoints.get(i).x, buildingPoints.get(i).y, null);
-        }
+            g.drawImage(buildingImage, buildingPoint.x, buildingPoint.y, null);
         for(int i = 0; i < VehicleComposite.carList.size(); i++) {
 
             if(vehicleImages.length <= i){
-                g.drawImage(vehicleImages[0], VehicleComposite.carList.get(i).x, VehicleComposite.carList.get(i).y, null);
+                g.drawImage(VehicleComposite.carList.get(i).getImage(), VehicleComposite.carList.get(i).x, VehicleComposite.carList.get(i).y, null);
             } else {
-                g.drawImage(vehicleImages[i], VehicleComposite.carList.get(i).x, VehicleComposite.carList.get(i).y, null);
+                g.drawImage(VehicleComposite.carList.get(i).getImage(), VehicleComposite.carList.get(i).x, VehicleComposite.carList.get(i).y, null);
             }
         }
     }
+
 }

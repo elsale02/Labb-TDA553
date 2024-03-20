@@ -1,8 +1,13 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarTransport extends Truck  {
+public class CarTransport extends Truck {
+    // Even though there is no image for CarTransport, it is added here for the future, as it would make no sense for it to not have an image to display
+    private final String imageAddress = "pics/CarTransport.jpg";
     private final List<Car> carLoad;
     private final int capacity;
     private boolean isRaised;
@@ -57,6 +62,15 @@ public class CarTransport extends Truck  {
                     car.y = this.y;
                 }
             }
+        }
+    }
+    @Override
+    public BufferedImage getImage(){
+        try{
+            return ImageIO.read(DrawPanel.class.getResourceAsStream(imageAddress));
+        } catch(IOException ex) {
+            ex.printStackTrace();
+            return null;
         }
     }
 }

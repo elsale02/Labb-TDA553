@@ -3,6 +3,7 @@ import java.util.Deque;
 import java.util.List;
 
 public class AutoRepairShop <T extends Car> implements Building {
+    private final String imageAddress ="pics/VolvoBrand.jpg";
     private int x;
     private int y;
     private final Deque<T> carBays;

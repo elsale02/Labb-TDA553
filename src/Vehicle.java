@@ -1,6 +1,10 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public abstract class Vehicle implements Movable, VehicleObservable {
+
     private final int nrDoors; // Number of doors on the car
     protected final double enginePower; // Engine power of the car
     protected double currentSpeed; // The current speed of the car
@@ -114,4 +118,5 @@ public abstract class Vehicle implements Movable, VehicleObservable {
             subscriber.update();
         }
     }
+    public abstract BufferedImage getImage();
 }
